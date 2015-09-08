@@ -15,8 +15,8 @@ use Maverickslab\Shopify\Exceptions\ShopifyException;
 class Collection extends BaseResource{
 
 
-    public function __construct( ApiRequestor $requestor){
-        $this->requestor = $requestor;
-        $this->requestor->resource = '/admin/custom_collections';
+    public function __construct( ApiRequestor $requester){
+        $this->requester = $requester;
+        $this->requester->resource = '/admin/custom_collections';
     }
 }

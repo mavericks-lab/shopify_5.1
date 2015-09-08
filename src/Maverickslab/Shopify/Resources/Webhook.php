@@ -15,10 +15,10 @@ use Maverickslab\Shopify\Exceptions\ShopifyException;
 class Webhook extends BaseResource{
 
 
-    public function __construct (ApiRequestor $requestor)
+    public function __construct (ApiRequestor $requester)
     {
-        $this->requestor = $requestor;
-        $this->requestor->resource = '/admin/webhooks';
+        $this->requester = $requester;
+        $this->requester->resource = '/admin/webhooks';
     }
 
     public function install(){
@@ -34,7 +34,7 @@ class Webhook extends BaseResource{
                     ]
                 ];
 
-                $this->requestor->post($webHook);
+                $this->requester->post($webHook);
             }
         }
     }

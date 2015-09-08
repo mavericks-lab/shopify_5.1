@@ -15,15 +15,15 @@ use Maverickslab\Shopify\Exceptions\ShopifyException;
 class Order extends BaseResource{
 
 
-    public function __construct( ApiRequestor $requestor){
-        $this->requestor = $requestor;
-        $this->requestor->resource = '/admin/orders';
+    public function __construct( ApiRequestor $requester){
+        $this->requester = $requester;
+        $this->requester->resource = '/admin/orders';
     }
 
 
 //    public function get ( $id = null, $options = [] )
 //    {
-//        return $this->requestor->get($id, $options);
+//        return $this->requester->get($id, $options);
 //    }
 //
 //    public function create ( $post_data )
@@ -31,7 +31,7 @@ class Order extends BaseResource{
 //        if(sizeof($post_data) < 0)
 //            throw new ShopifyException('Create Data is empty');
 //
-//        return $this->requestor->post( $post_data );
+//        return $this->requester->post( $post_data );
 //    }
 //
 //    public function modify ( $id, $modify_data )
@@ -42,7 +42,7 @@ class Order extends BaseResource{
 //        if(sizeof($modify_data) < 0)
 //            throw new ShopifyException('Modify Data is empty');
 //
-//        return $this->requestor->put($id, $modify_data);
+//        return $this->requester->put($id, $modify_data);
 //    }
 //
 //    public function remove ( $id )
@@ -50,14 +50,14 @@ class Order extends BaseResource{
 //        if(is_null($id))
 //            throw new ShopifyException('Order Id not provided');
 //
-//        return $this->requestor->delete( $id );
+//        return $this->requester->delete( $id );
 //    }
 
     public function markAsPaid($order_id, $post_data){
-        $this->requestor->resource = $this->requestor->resource.'/'.$order_id.'/transactions';
+        $this->requester->resource = $this->requester->resource.'/'.$order_id.'/transactions';
         if(sizeof($post_data) < 0)
             throw new ShopifyException('Transaction Data is empty');
 
-        return $this->requestor->post( $post_data );
+        return $this->requester->post( $post_data );
     }
 }

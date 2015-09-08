@@ -81,7 +81,7 @@ class ApiRequestorTest extends PHPUnit_Framework_TestCase {
 //     */
 //    public function test_throws_exception_if_store_url_is_not_provided(){
 //
-//        $scope = $this->requestor->install();
+//        $scope = $this->requester->install();
 //    }
 
 

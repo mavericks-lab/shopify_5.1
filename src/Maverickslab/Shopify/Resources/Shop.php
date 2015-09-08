@@ -12,15 +12,11 @@ namespace Maverickslab\Shopify\Resources;
 use Maverickslab\Shopify\ApiRequestor;
 
 class Shop extends BaseResource{
+    protected  $requester;
 
-    /**
-     * @var ApiRequestor
-     */
-    protected  $requestor;
+    public function __construct(ApiRequestor $requester){
 
-    public function __construct(ApiRequestor $requestor){
-
-        $this->requestor = $requestor;
-        $this->requestor->resource = '/admin/shop';
+        $this->requester = $requester;
+        $this->requester->resource = '/admin/shop';
     }
 } 
