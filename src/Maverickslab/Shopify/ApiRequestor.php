@@ -280,10 +280,13 @@ class ApiRequestor {
         }
     }
 
-    public function count(){
+    public function count($options){
         $this->url = $this->getUrl().'/count';
-
         $this->url = $this->jsonizeUrl($this->url);
+        if(sizeof($options) > 0){
+            $this->url = $this->url.$this->getQueryString($options);
+        }
+
         $headers = $this->getHeaders();
         $response = $this->client->get($this->url, $headers)->send();
 

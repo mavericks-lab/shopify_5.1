@@ -48,7 +48,7 @@ class BaseResource implements ResourceInterface{
         return $this->requester->delete( $id );
     }
 
-    public function count(){
-        return $this->requester->count();
+    public function count($options = []){
+        return $this->requester->count($options);
     }
 } 
