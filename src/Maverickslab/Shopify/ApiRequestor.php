@@ -9,6 +9,7 @@
 namespace Maverickslab\Shopify;
 
 
+use Exception;
 use Guzzle\Http\Exception\ClientErrorResponseException;
 use Guzzle\Service\Client;
 use Illuminate\Support\Facades\Config;
@@ -124,7 +125,7 @@ class ApiRequestor {
             $response = $this->client->get($this->url, $headers)->send();
 
             return $response->json();
-        }catch (ClientErrorResponseException $exception){
+        }catch (Exception $exception){
             throw new ShopifyException( $exception->getMessage(), $exception->getResponse()->json());
         }
     }
@@ -250,7 +251,7 @@ class ApiRequestor {
             $this->url = $this->jsonizeUrl($this->getUrl());
             $response = $this->client->post($this->url, $this->getHeaders(), json_encode($post_data))->send();
             return $response->json();
-        }catch (ClientErrorResponseException $exception){
+        }catch (Exception $exception){
             throw new ShopifyException( $exception->getMessage(), $exception->getResponse()->json());
         }
     }
@@ -275,7 +276,7 @@ class ApiRequestor {
 
             $response = $this->client->delete($this->url, $this->getHeaders())->send();
             return $response->json();
-        }catch (ClientErrorResponseException $exception){
+        }catch (Exception $exception){
             throw new ShopifyException( $exception->getMessage(), $exception->getResponse()->json());
         }
     }
