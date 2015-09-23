@@ -126,7 +126,7 @@ class ApiRequestor {
 
             return $response->json();
         }catch (Exception $exception){
-            throw new ShopifyException( $exception->getMessage(), $exception->getResponse()->json());
+            throw new ShopifyException( $exception->getMessage());
         }
     }
 
@@ -252,7 +252,7 @@ class ApiRequestor {
             $response = $this->client->post($this->url, $this->getHeaders(), json_encode($post_data))->send();
             return $response->json();
         }catch (Exception $exception){
-            throw new ShopifyException( $exception->getMessage(), $exception->getResponse()->json());
+            throw new ShopifyException( $exception->getMessage());
         }
     }
 
@@ -264,8 +264,8 @@ class ApiRequestor {
             $response = $this->client->put($this->url, $this->getHeaders(), json_encode($modify_data))->send();
 
             return $response->json();
-        }catch (ClientErrorResponseException $exception){
-            throw new ShopifyException( $exception->getMessage(), $exception->getResponse()->json());
+        }catch (Exception $exception){
+            throw new ShopifyException( $exception->getMessage());
         }
     }
 
@@ -277,7 +277,7 @@ class ApiRequestor {
             $response = $this->client->delete($this->url, $this->getHeaders())->send();
             return $response->json();
         }catch (Exception $exception){
-            throw new ShopifyException( $exception->getMessage(), $exception->getResponse()->json());
+            throw new ShopifyException( $exception->getMessage());
         }
     }
 
