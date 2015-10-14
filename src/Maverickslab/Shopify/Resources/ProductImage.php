@@ -12,7 +12,7 @@ namespace Maverickslab\Shopify\Resources;
 use Maverickslab\Shopify\ApiRequestor;
 use Maverickslab\Shopify\Exceptions\ShopifyException;
 
-class Product extends BaseResource{
+class ProductImage extends BaseResource{
 
 
     public function __construct( ApiRequestor $requester){
