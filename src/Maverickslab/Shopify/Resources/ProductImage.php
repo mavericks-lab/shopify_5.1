@@ -28,7 +28,7 @@ class ProductImage extends BaseResource{
         if(is_null($id))
             throw new ShopifyException('Product Image Id not provided');
 
-        $this->requester->resource = $this->requester->resource.'/'.$product_id.'/images/'.$id;
+        $this->requester->resource = $this->requester->resource.'/'.$product_id.'/images';
 
         return $this->requester->delete( $id );
     }
