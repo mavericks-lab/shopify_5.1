@@ -61,7 +61,8 @@ class ApiRequestor {
 
             return $response->json();
         }catch (ClientErrorResponseException $exception){
-            throw new ShopifyException( $exception->getMessage(), $exception->getResponse()->json());
+            throw new ShopifyException( $exception->getMessage(), [$exception->getResponse()->getBody(true)], $exception->getResponse()->getStatusCode(), $exception);
+
         }
     }
 
@@ -125,8 +126,8 @@ class ApiRequestor {
             $response = $this->client->get($this->url, $headers)->send();
 
             return $response->json();
-        }catch (Exception $exception){
-            throw new ShopifyException( $exception->getMessage());
+        }catch (ClientErrorResponseException $exception){
+            throw new ShopifyException( $exception->getMessage(), [$exception->getResponse()->getBody(true)], $exception->getResponse()->getStatusCode(), $exception);
         }
     }
 
@@ -251,8 +252,8 @@ class ApiRequestor {
             $this->url = $this->jsonizeUrl($this->getUrl());
             $response = $this->client->post($this->url, $this->getHeaders(), json_encode($post_data))->send();
             return $response->json();
-        }catch (Exception $exception){
-            throw new ShopifyException( $exception->getMessage());
+        }catch (ClientErrorResponseException $exception){
+            throw new ShopifyException( $exception->getMessage(), [$exception->getResponse()->getBody(true)], $exception->getResponse()->getStatusCode(), $exception);
         }
     }
 
@@ -264,8 +265,8 @@ class ApiRequestor {
             $response = $this->client->put($this->url, $this->getHeaders(), json_encode($modify_data))->send();
 
             return $response->json();
-        }catch (Exception $exception){
-            throw new ShopifyException( $exception->getMessage());
+        }catch (ClientErrorResponseException $exception){
+            throw new ShopifyException( $exception->getMessage(), [$exception->getResponse()->getBody(true)], $exception->getResponse()->getStatusCode(), $exception);
         }
     }
 
@@ -282,16 +283,20 @@ class ApiRequestor {
     }
 
     public function count($options){
-        $this->url = $this->getUrl().'/count';
-        $this->url = $this->jsonizeUrl($this->url);
-        if(sizeof($options) > 0){
-            $this->url = $this->url.$this->getQueryString($options);
+        try{
+            $this->url = $this->getUrl().'/count';
+            $this->url = $this->jsonizeUrl($this->url);
+            if(sizeof($options) > 0){
+                $this->url = $this->url.$this->getQueryString($options);
+            }
+
+            $headers = $this->getHeaders();
+            $response = $this->client->get($this->url, $headers)->send();
+
+            return $response->json();
+        }catch (ClientErrorResponseException $exception){
+            throw new ShopifyException( $exception->getMessage(), [$exception->getResponse()->getBody(true)], $exception->getResponse()->getStatusCode(), $exception);
         }
-
-        $headers = $this->getHeaders();
-        $response = $this->client->get($this->url, $headers)->send();
-
-        return $response->json();
     }
 
     public  function getRedirectUrl ()
