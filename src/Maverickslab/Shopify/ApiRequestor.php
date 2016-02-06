@@ -250,7 +250,10 @@ class ApiRequestor {
     {
         try{
             $this->url = $this->jsonizeUrl($this->getUrl());
-            $response = $this->client->post($this->url, $this->getHeaders(), json_encode($post_data))->send();
+            $request = $this->client->post($this->url, $this->getHeaders(), json_encode($post_data));
+            $request->getCurlOptions()->set('CURLOPT_SSLVERSION', 3);
+
+            $response = $request->send();
             return $response->json();
         }catch (ClientErrorResponseException $exception){
             throw new ShopifyException( $exception->getMessage(), [$exception->getResponse()->getBody(true)], $exception->getResponse()->getStatusCode(), $exception);
@@ -262,8 +265,10 @@ class ApiRequestor {
         try{
             $this->url = $this->jsonizeUrl($this->appendResourceId($this->getUrl(), $id));
 
-            $response = $this->client->put($this->url, $this->getHeaders(), json_encode($modify_data))->send();
+            $request = $this->client->put($this->url, $this->getHeaders(), json_encode($modify_data));
+            $request->getCurlOptions()->set('CURLOPT_SSLVERSION', 3);
 
+            $response = $request->send();
             return $response->json();
         }catch (ClientErrorResponseException $exception){
             throw new ShopifyException( $exception->getMessage(), [$exception->getResponse()->getBody(true)], $exception->getResponse()->getStatusCode(), $exception);
