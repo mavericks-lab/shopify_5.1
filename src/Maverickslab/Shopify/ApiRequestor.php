@@ -246,7 +246,7 @@ class ApiRequestor {
         ];
     }
 
-    public function post ( $post_data )
+    public function post ( $post_data = [] )
     {
         try{
             $this->url = $this->jsonizeUrl($this->getUrl());
