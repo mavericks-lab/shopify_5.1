@@ -283,7 +283,7 @@ class ApiRequestor {
             $response = $this->client->delete($this->url, $this->getHeaders())->send();
             return $response->json();
         }catch (Exception $exception){
-            throw new ShopifyException( $exception->getMessage());
+            throw new ShopifyException( $exception->getMessage(), [$exception->getResponse()->getBody(true)], $exception->getResponse()->getStatusCode(), $exception);
         }
     }
 
