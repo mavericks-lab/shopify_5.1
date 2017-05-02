@@ -1,5 +1,5 @@
 {
-    "name": "maverickslab/shopify-5.1",
+    "name": "maverickslab/shopify",
     "description": "This laravel package is to unable developers to easily create shopify apps",
     "authors": [
         {
@@ -8,8 +8,8 @@
         }
     ],
     "require": {
-        "php": ">=5.4.0",
-        "illuminate/support": "5.1.*",
+        "php": ">=5.6.4",
+        "illuminate/support": "5.4.*",
         "guzzle/guzzle": "~3.9",
         "mockery/mockery": "0.9.*"
     },
