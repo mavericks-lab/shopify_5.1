@@ -10,8 +10,9 @@ namespace Maverickslab\Shopify;
 
 
 use Exception;
-use Guzzle\Http\Exception\ClientErrorResponseException;
-use Guzzle\Service\Client;
+
+use GuzzleHttp\Client;
+use GuzzleHttp\Exception\ClientException;
 use Illuminate\Support\Facades\Config;
 use Maverickslab\Shopify\Exceptions\ShopifyException;
 
@@ -60,7 +61,7 @@ class ApiRequestor {
             $response = $this->client->post($link, [], $params)->send();
 
             return $response->json();
-        }catch (ClientErrorResponseException $exception){
+        }catch (ClientException $exception){
             throw new ShopifyException( $exception->getMessage(), [$exception->getResponse()->getBody(true)], $exception->getResponse()->getStatusCode(), $exception);
 
         }
@@ -122,11 +123,11 @@ class ApiRequestor {
             }
 
             $headers = $this->getHeaders();
+            
+            $response = $this->client->request('GET',$this->url, ['headers' => $headers]);
 
-            $response = $this->client->get($this->url, $headers)->send();
-
-            return $response->json();
-        }catch (ClientErrorResponseException $exception){
+            return \GuzzleHttp\json_decode($response->getBody()->getContents(), true);
+        }catch (ClientException $exception){
             throw new ShopifyException( $exception->getMessage(), [$exception->getResponse()->getBody(true)], $exception->getResponse()->getStatusCode(), $exception);
         }
     }
@@ -255,7 +256,7 @@ class ApiRequestor {
 
             $response = $request->send();
             return $response->json();
-        }catch (ClientErrorResponseException $exception){
+        }catch (ClientException $exception){
             throw new ShopifyException( $exception->getMessage(), [$exception->getResponse()->getBody(true)], $exception->getResponse()->getStatusCode(), $exception);
         }
     }
