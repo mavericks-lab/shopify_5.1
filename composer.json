@@ -17,5 +17,5 @@
             "Maverickslab\\Shopify": "src/"
         }
     },
-    "minimum-stability": "stable"
+    "minimum-stability": "dev"
 }
