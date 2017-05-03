@@ -58,9 +58,13 @@ class ApiRequestor {
         $link = $this->sanitizeUrl($this->getStoreUrl()) . $this->tokenUrl;
 
         try{
-            $response = $this->client->post($link, [], $params)->send();
+            $response = $this->client->post($link, [
+                'json'   => $params,
+                'verify' => true
+            ]);
 
-            return $response->json();
+            return json_decode($response->getBody()->getContents(), true);
+
         }catch (ClientException $exception){
             throw new ShopifyException( $exception->getMessage(), [$exception->getResponse()->getBody(true)], $exception->getResponse()->getStatusCode(), $exception);
 
@@ -122,9 +126,10 @@ class ApiRequestor {
                 $this->url = $this->url.$this->getQueryString($options);
             }
 
-            $headers = $this->getHeaders();
-            
-            $response = $this->client->request('GET',$this->url, ['headers' => $headers]);
+            $response = $this->client->get($this->url, [
+                'headers' => $this->getHeaders(),
+                'verify'  => true
+            ]);
 
             return \GuzzleHttp\json_decode($response->getBody()->getContents(), true);
         }catch (ClientException $exception){
@@ -251,11 +256,19 @@ class ApiRequestor {
     {
         try{
             $this->url = $this->jsonizeUrl($this->getUrl());
-            $request = $this->client->post($this->url, $this->getHeaders(), json_encode($post_data));
-            $request->getCurlOptions()->set('CURLOPT_SSLVERSION', 3);
+//            $request = $this->client->post($this->url, $this->getHeaders(), json_encode($post_data));
+//            $request->getCurlOptions()->set('CURLOPT_SSLVERSION', 3);
+//            $response = $request->send();
+//            return $response->json();
 
-            $response = $request->send();
-            return $response->json();
+            $response = $this->client->post($this->url, [
+                'headers' => $this->getHeaders(),
+                'json'    => $post_data,
+                'verify'  => false
+            ]);
+
+            return json_decode($response->getBody()->getContents(), true);
+            
         }catch (ClientException $exception){
             throw new ShopifyException( $exception->getMessage(), [$exception->getResponse()->getBody(true)], $exception->getResponse()->getStatusCode(), $exception);
         }
@@ -266,12 +279,19 @@ class ApiRequestor {
         try{
             $this->url = $this->jsonizeUrl($this->appendResourceId($this->getUrl(), $id));
 
-            $request = $this->client->put($this->url, $this->getHeaders(), json_encode($modify_data));
-            $request->getCurlOptions()->set('CURLOPT_SSLVERSION', 3);
+//            $request = $this->client->put($this->url, $this->getHeaders(), json_encode($modify_data));
+//            $request->getCurlOptions()->set('CURLOPT_SSLVERSION', 3);
+//            $response = $request->send();
+//            return $response->json();
 
-            $response = $request->send();
-            return $response->json();
-        }catch (ClientErrorResponseException $exception){
+            $response = $this->client->put($this->url, [
+                'headers' => $this->getHeaders(),
+                'json'    => $modify_data,
+                'verify'  => true
+            ]);
+
+            return json_decode($response->getBody()->getContents(), true);
+        }catch (ClientException $exception){
             throw new ShopifyException( $exception->getMessage(), [$exception->getResponse()->getBody(true)], $exception->getResponse()->getStatusCode(), $exception);
         }
     }
@@ -281,9 +301,14 @@ class ApiRequestor {
         try{
             $this->url = $this->jsonizeUrl($this->appendResourceId($this->getUrl(), $id));
 
-            $response = $this->client->delete($this->url, $this->getHeaders())->send();
-            return $response->json();
-        }catch (Exception $exception){
+            $response = $this->client->delete($this->url, [
+                'headers' => $this->getHeaders(),
+                'verify'  => true
+            ]);
+
+            return json_decode($response->getBody()->getContents(), true);
+
+        }catch (ClientException $exception){
             throw new ShopifyException( $exception->getMessage(), [$exception->getResponse()->getBody(true)], $exception->getResponse()->getStatusCode(), $exception);
         }
     }
@@ -297,10 +322,14 @@ class ApiRequestor {
             }
 
             $headers = $this->getHeaders();
-            $response = $this->client->get($this->url, $headers)->send();
+            $response = $this->client->get($this->url, [
+                'headers' => $headers,
+                'verify'  => true
+            ]);
 
-            return $response->json();
-        }catch (ClientErrorResponseException $exception){
+            return json_decode($response->getBody()->getContents(), true);
+
+        }catch (ClientException $exception){
             throw new ShopifyException( $exception->getMessage(), [$exception->getResponse()->getBody(true)], $exception->getResponse()->getStatusCode(), $exception);
         }
     }
