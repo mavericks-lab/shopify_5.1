@@ -66,7 +66,7 @@ class ApiRequestor {
             return json_decode($response->getBody()->getContents(), true);
 
         }catch (ClientException $exception){
-            throw new ShopifyException( $exception->getMessage(), [$exception->getResponse()->getBody(true)], $exception->getResponse()->getStatusCode(), $exception);
+            throw new ShopifyException( $exception->getMessage(), json_decode($exception->getResponse()->getBody(true)->getContents(), true), $exception->getResponse()->getStatusCode(), $exception);
 
         }
     }
@@ -133,7 +133,7 @@ class ApiRequestor {
 
             return \GuzzleHttp\json_decode($response->getBody()->getContents(), true);
         }catch (ClientException $exception){
-            throw new ShopifyException( $exception->getMessage(), [$exception->getResponse()->getBody(true)], $exception->getResponse()->getStatusCode(), $exception);
+            throw new ShopifyException( $exception->getMessage(), json_decode($exception->getResponse()->getBody(true)->getContents(), true), $exception->getResponse()->getStatusCode(), $exception);
         }
     }
 
@@ -270,7 +270,7 @@ class ApiRequestor {
             return json_decode($response->getBody()->getContents(), true);
             
         }catch (ClientException $exception){
-            throw new ShopifyException( $exception->getMessage(), [$exception->getResponse()->getBody(true)], $exception->getResponse()->getStatusCode(), $exception);
+            throw new ShopifyException( $exception->getMessage(), json_decode($exception->getResponse()->getBody(true)->getContents(), true), $exception->getResponse()->getStatusCode(), $exception);
         }
     }
 
@@ -292,7 +292,7 @@ class ApiRequestor {
 
             return json_decode($response->getBody()->getContents(), true);
         }catch (ClientException $exception){
-            throw new ShopifyException( $exception->getMessage(), [$exception->getResponse()->getBody(true)], $exception->getResponse()->getStatusCode(), $exception);
+            throw new ShopifyException( $exception->getMessage(), json_decode($exception->getResponse()->getBody(true)->getContents(), true), $exception->getResponse()->getStatusCode(), $exception);
         }
     }
 
@@ -309,7 +309,7 @@ class ApiRequestor {
             return json_decode($response->getBody()->getContents(), true);
 
         }catch (ClientException $exception){
-            throw new ShopifyException( $exception->getMessage(), [$exception->getResponse()->getBody(true)], $exception->getResponse()->getStatusCode(), $exception);
+            throw new ShopifyException( $exception->getMessage(), json_decode($exception->getResponse()->getBody(true)->getContents(), true), $exception->getResponse()->getStatusCode(), $exception);
         }
     }
 
@@ -330,7 +330,7 @@ class ApiRequestor {
             return json_decode($response->getBody()->getContents(), true);
 
         }catch (ClientException $exception){
-            throw new ShopifyException( $exception->getMessage(), [$exception->getResponse()->getBody(true)], $exception->getResponse()->getStatusCode(), $exception);
+            throw new ShopifyException( $exception->getMessage(), json_decode($exception->getResponse()->getBody(true)->getContents(), true), $exception->getResponse()->getStatusCode(), $exception);
         }
     }
 
