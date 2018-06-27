@@ -22,6 +22,6 @@ class InventoryLevel extends BaseResource{
 
     public function set()
     {
-        $this->requester->resource = '/admin/locations/inventory_levels/set';
+        $this->requester->resource = '/admin/inventory_levels/set';
     }
 }
