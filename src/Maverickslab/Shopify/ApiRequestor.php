@@ -126,12 +126,11 @@ class ApiRequestor {
                 $this->url = $this->url.$this->getQueryString($options);
             }
 
-            $response = $this->client->get($this->url, [
+            //            return \GuzzleHttp\json_decode($response->getBody()->getContents(), true);
+            return $this->client->get($this->url, [
                 'headers' => $this->getHeaders(),
                 'verify'  => true
             ]);
-
-            return \GuzzleHttp\json_decode($response->getBody()->getContents(), true);
         }catch (ClientException $exception){
             throw new ShopifyException( $exception->getMessage(), json_decode($exception->getResponse()->getBody(true)->getContents(), true), $exception->getResponse()->getStatusCode(), $exception);
         }
